@@ -13,48 +13,56 @@ module.exports = function(req, res) {
     var jsLocation = req.query.jsLocation || 'middle';
     var reorder = renderMode === 'progressive-out-of-order';
     var stateName = req.query.state;
+    //console.log(stateName+"****");
     if(stateName === undefined) stateName = "Assam";
 
     var apiOne = {
         host : 'data.gov.in', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=5d76aa1c-fd1d-41f1-bc34-25aa6d356402&api-key=<REPLACE YOUR API KEY>&filters[stateu_t_]='+stateName,
+        path : '/api/datastore/resource.json?resource_id=5d76aa1c-fd1d-41f1-bc34-25aa6d356402&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[stateu_t_]='+stateName,
         method : 'GET'
     };
 
     var apiTwo = {
         host : 'data.gov.in', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=3b66700e-3368-4a7f-975f-abfabe861501&api-key=<REPLACE YOUR API KEY>&filters[stateu_t_]='+stateName, 
+        path : '/api/datastore/resource.json?resource_id=3b66700e-3368-4a7f-975f-abfabe861501&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[stateu_t_]='+stateName, 
         method : 'GET' 
     };
 
     var apiThree = {
         host : 'data.gov.in', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=7390abfc-3b3f-4a07-a17d-3cfe2ffa9300&api-key=<REPLACE YOUR API KEY>&filters[statesuts]='+stateName, 
+        path : '/api/datastore/resource.json?resource_id=7390abfc-3b3f-4a07-a17d-3cfe2ffa9300&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[statesuts]='+stateName, 
         method : 'GET' 
     };
 
     var viewModel = {
         headerDataProvider: function(args, callback) {
+            var start = new Date();
             reqGet = https.request(apiOne, function(res) {
                 var body = '';
                 res.on('data', function(d) {
                     body += d;
                 });
                 res.on('end', function() {
+                    var end = (new Date() - start) + 1000; //1s delayed manually - see index.js
                     var par = JSON.parse(body);
+                    console.info("Execution time: %dms", end);
                     //process.stdout.write(parsed.help);
-                    setTimeout(function() {
-                        callback(null, {
-                            State : par.records[0].stateu_t_,
-                            fttMale : par.records[0].full_time_teachers___male,
-                            fttFemale : par.records[0].full_time_teachers___female,
-                            contractMale : par.records[0].paracontract_teachers___male,
-                            contractFemale : par.records[0].paracontract_teachers___female
-                        });
-                    }, 500);
+                    
+                    if(par.success === true){
+                        setTimeout(function() {
+                            callback(null, {
+                                timetaken : end,
+                                State : par.records[0].stateu_t_,
+                                fttMale : par.records[0].full_time_teachers___male,
+                                fttFemale : par.records[0].full_time_teachers___female,
+                                contractMale : par.records[0].paracontract_teachers___male,
+                                contractFemale : par.records[0].paracontract_teachers___female
+                            });
+                        }, 1000);
+                    }
                 });
             });
             reqGet.end();
@@ -63,23 +71,27 @@ module.exports = function(req, res) {
             });      
         },
         navDataProvider: function(args, callback) {
+            var start = new Date();
             reqGet = https.request(apiTwo, function(res) {
                 var body = '';
                 res.on('data', function(d) {
                     body += d;
                 });
                 res.on('end', function() {
+                    var end = new Date() - start;
                     var par = JSON.parse(body);
-                    //process.stdout.write(parsed.help);
-                    setTimeout(function() {
-                        callback(null, {
-                            State : par.records[0].stateu_t_,
-                            ninethMale : par.records[0].enrolment_in_class_ix___boys,
-                            ninethFemale : par.records[0].enrolment_in_class_ix___girls,
-                            tenthMale : par.records[0].enrolment_in_class_x___boys,
-                            tenthFemale : par.records[0].enrolment_in_class_x___girls
-                        });
-                    }, 500);
+                    if(par.success === true){
+                        setTimeout(function() {
+                            callback(null, {
+                                timeTaken : end,
+                                State : par.records[0].stateu_t_,
+                                ninethMale : par.records[0].enrolment_in_class_ix___boys,
+                                ninethFemale : par.records[0].enrolment_in_class_ix___girls,
+                                tenthMale : par.records[0].enrolment_in_class_x___boys,
+                                tenthFemale : par.records[0].enrolment_in_class_x___girls
+                            });
+                        }, 0);
+                    }    
                 });
             });
             reqGet.end();
@@ -88,21 +100,25 @@ module.exports = function(req, res) {
             });
         },
         mainDataProvider: function(args, callback) {
+            var start = new Date();
             reqGet = https.request(apiThree, function(res) {
                 var body = '';
                 res.on('data', function(d) {
                     body += d;
                 });
                 res.on('end', function() {
+                    var end = new Date() - start;
                     var par = JSON.parse(body);
-                    //process.stdout.write(parsed.help);
-                    setTimeout(function() {
-                        callback(null, {
-                            State : par.records[0].statesuts,
-                            electrified : par.records[0].villages_electrified_as_on_31_03_2014_provisionalnumbers,
-                            unelectrified : par.records[0].unelectrified_villages_as_on_28_02_2015
-                        });
-                    }, 500);
+                    if(par.success === true) {
+                        setTimeout(function() {
+                            callback(null, {
+                                timeTaken : end,
+                                State : par.records[0].statesuts,
+                                electrified : par.records[0].villages_electrified_as_on_31_03_2014_provisionalnumbers,
+                                unelectrified : par.records[0].unelectrified_villages_as_on_28_02_2015
+                            });
+                        }, 0);
+                    }    
                 });
             });
             reqGet.end();

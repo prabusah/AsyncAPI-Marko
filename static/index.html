@@ -20,7 +20,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/static/index.html">Home</a></li>
+              <li class="active"><a href="/">Home</a></li>
               <li><a href="/static/about.html">About</a></li>
               <li><a href="/static/contact.html">Contact</a></li>
             </ul>
@@ -28,20 +28,36 @@
         </div><!--/.container-fluid -->
     </nav>
     <div class="row">1</div>
-    <div class="page-header text-center">
-        <h1>Contact</h1>
-        <div id="widget">
-<a href="https://twitter.com/prabusah" class="twitter-follow-button" data-show-count="false">Follow @prabusah</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        </div>
+    <div class="row">1</div>
+    <div class="row">1</div>
+    <div class="row">1</div>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>State Info from APIs</h2>
+        <p>Type in the interested state name to view:
+          <li>Teachers in position in secondary schools in urban area</li>
+          <li>Classwise enrolment in Classes IX and X in urban area</li>
+          <li>Report of Village electrification</li></p>
+        <p>
+          <form class="form-inline" action="/api">
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+              <div class="input-group">
+                <input type="text" name="state" class="typeahead form-control" id="exampleInputAmount" placeholder="State name" autocomplete="off" spellcheck="false">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Go</button>
+          </form>
+        </p>
+      </div>
     </div>
-
- 
+    
     <div class="page-footer text-center">
-        <p>Tweet your questions/suggestions</p>
+        <p><a href="mailto:prabusah@gmail.com">prabusah</a></p>
     </div>
-
 <script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/typeahead.jquery.min.js"></script>
 <script src="/static/assets/js/bootstrap.min.js"></script>
+<script src="/static/assets/js/common.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-function Widget() {
+/*function Widget() {
 	var iStates = ["Assam", "Bihar", "Chandigarh", "Delhi", "Goa", "Gujarat", "Haryana", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Punjab", "Rajasthan", "Sikkim", "Uttarakhand"];
     var el = this.el;
     var messageEl = this.getEl('message');
@@ -12,4 +12,4 @@ function Widget() {
     });
 }
 
-module.exports = Widget;
+module.exports = Widget;*/

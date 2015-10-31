@@ -19,17 +19,17 @@ app.use('/static', serveStatic(__dirname + '/static', {
 }));
 
 app.get('/iframe', require('./pages/iframe'));
-app.get('/', require('./pages/iframe'));
+app.get('/api', require('./pages/iframe'));
 
 //Uncomment below blocked-comment in local
-/*app.listen(port, function() {
+app.listen(port, function() {
     console.log('Server started! Try it out:\nhttp://localhost:' + port + '/');
 
     if (process.send) {
         process.send('online');
     }
-});*/
+});
 
 //comment below line in local
-app.listen(process.env.PORT);
+//app.listen(process.env.PORT);
 
