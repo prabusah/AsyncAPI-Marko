@@ -12,8 +12,9 @@ module.exports = function(req, res) {
     var renderMode = req.query.renderMode || 'progressive-out-of-order';
     var jsLocation = req.query.jsLocation || 'middle';
     var reorder = renderMode === 'progressive-out-of-order';
-    var stateName = req.query.state;
-    //console.log(stateName+"****");
+    var stateName = escape(req.body.state);
+    var token = req.body.token;
+    console.log(token+"****");
     if(stateName === undefined) stateName = "Assam";
 
     var apiOne = {

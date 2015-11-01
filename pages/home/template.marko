@@ -1,0 +1,96 @@
+<optimizer-page package-path="./optimizer.json"/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statewise Information from Government APIs</title>
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/css/sticky-footer-navbar.css" rel="stylesheet">
+    <optimizer-head/>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Digital India</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/static/about.html">About</a></li>
+              <li><a href="/static/contact.html">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="container">
+      <div class="jumbotron">
+        <div class="container">
+          <h2>State Info from APIs</h2>
+          <p>Type in the interested state name to view:
+            <li>Teachers in position in secondary schools in urban area</li>
+            <li>Classwise enrolment in Classes IX and X in urban area</li>
+            <li>Report of Village electrification</li></p>
+          <p>
+            <form class="form-inline" action="/api" method="post">
+              <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" name="state" class="typeahead form-control" style="vertical-align: middle;" id="exampleInputAmount" placeholder="State name" autocomplete="off" spellcheck="false" required>
+                  <button type="submit" class="btn btn-primary">Go</button>
+                 </div>
+              </div>
+              </div>
+              <async-fragment data-provider="data.headerDataProvider"
+                arg-delay="${2}"
+                name="header"
+                var="header"
+                client-reorder="data.reorderEnabled">
+                <async-fragment-placeholder>
+                    <h6><small>Loading Content...</small></h6>
+                </async-fragment-placeholder>
+                <async-fragment-timeout>
+                    <h6><small>TimeOut occurred on API call</small></h6>
+                </async-fragment-timeout>
+
+                <h6><small class="pull-right">Received Token</small></h6>
+                <input type="hidden" name="token" value="${header.timetaken}">
+              </async-fragment>
+            </form>
+          </p>
+      </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center">prabusah@gmail.com</p>
+      </div>
+    </footer>
+
+    <async-fragments/>
+
+    <if test="data.jsLocation eq 'bottom'">
+        <optimizer-body/>
+        <init-widgets/>
+    </if>
+    <else>
+        <init-widgets immediate/>
+        <!-- NOTE: Use immediate if the JavaScript is included before the rendered widgets -->
+    </else>
+    
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/typeahead.jquery.min.js"></script>
+<script src="/static/assets/js/bootstrap.min.js"></script>
+<script src="/static/assets/js/common.js"></script>
+</body>
+</html>

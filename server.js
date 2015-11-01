@@ -4,10 +4,12 @@ require('marko/compiler').defaultOptions.preserveWhitespace = true;
 var express = require('express');
 var serveStatic = require('serve-static');
 var compression = require('compression');
-
+var bodyParser = require('body-parser')
 var app = express();
 var port = process.env.PORT || 8080;
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(compression()); // Enable gzip compression for all HTTP responses
 
 app.use('/static', function(req, res, next) {
@@ -18,8 +20,8 @@ app.use('/static', serveStatic(__dirname + '/static', {
     lastModified: false
 }));
 
-app.get('/iframe', require('./pages/iframe'));
-app.get('/api', require('./pages/iframe'));
+app.post('/api', require('./pages/api'));
+app.get('/', require('./pages/home'));
 
 //Uncomment below blocked-comment in local
 app.listen(port, function() {

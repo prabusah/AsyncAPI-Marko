@@ -7,7 +7,7 @@ $(document).ready(function(){
 	  name: 'my-dataset',
 	  source: substringMatcher(states)
 	});
-}); 
+});
 
 var substringMatcher = function(strs) {
 	  return function findMatches(q, cb) {
@@ -31,6 +31,8 @@ var substringMatcher = function(strs) {
 	  };
 	};
 
-var states = ["Assam", "Bihar", "Chandigarh", "Delhi", "Goa", "Gujarat", "Haryana", 
-"Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Maharashtra", "Manipur", "Meghalaya", 
-"Mizoram", "Nagaland", "Punjab", "Rajasthan", "Sikkim", "Uttarakhand"];
+var states = ["Andaman Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", 
+	"Chhattisgarh", "Dadra Nagar Haveli", "Daman Diu", "Delhi", "Goa", "Gujarat", "Haryana", 
+	"Himachal Pradesh", "Jammu Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", 
+	"Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", 
+	"Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];

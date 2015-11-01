@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statewise Information from Government APIs</title>
     <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/css/sticky-footer-navbar.css" rel="stylesheet">
     <optimizer-head/>
 </head>
 <body>
@@ -19,11 +20,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/static/index.html">Digital India</a>
+            <a class="navbar-brand" href="/">Digital India</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/static/index.html">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/static/about.html">About</a></li>
               <li><a href="/static/contact.html">Contact</a></li>
             </ul>
@@ -53,7 +54,7 @@
                 Loading Content...
             </async-fragment-placeholder>
             <async-fragment-timeout>
-                <p>TimeOut occurred on API call</p>
+                <p>Timeout occurred on API call</p>
             </async-fragment-timeout>
             <header>
                 <p>Time taken : $header.timetaken ms</p>
@@ -80,7 +81,7 @@
                 Loading Content...
             </async-fragment-placeholder>
             <async-fragment-timeout>
-                <p>TimeOut occurred on API call</p>
+                <p>Timeout occurred on API call</p>
             </async-fragment-timeout>
             <nav>
                 <p>Time taken : $nav.timeTaken ms</p>
@@ -110,7 +111,7 @@
             </async-fragment-placeholder>
 
             <async-fragment-timeout>
-                <p>TimeOut occurred on API call</p>
+                <p>Timeout occurred on API call</p>
             </async-fragment-timeout>
 
             <main>
@@ -128,9 +129,11 @@
         var="footer"
         client-reorder="data.reorderEnabled">
 
-    <div class="page-footer text-center">
-        <p><a href="mailto:prabusah@gmail.com">prabusah</a></p>
-    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center">prabusah@gmail.com</p>
+      </div>
+    </footer>
 
     </async-fragment>
 
