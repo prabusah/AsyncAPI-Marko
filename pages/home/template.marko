@@ -56,13 +56,11 @@
                 var="header"
                 client-reorder="data.reorderEnabled">
                 <async-fragment-placeholder>
-                    <h6><small>Loading Content...</small></h6>
+                    <h6><small class="pull-right">Getting token...</small></h6>
                 </async-fragment-placeholder>
                 <async-fragment-timeout>
-                    <h6><small>TimeOut occurred on API call</small></h6>
+                    <h6><small class="pull-right">TimeOut occurred on API call</small></h6>
                 </async-fragment-timeout>
-
-                <h6><small class="pull-right">Received Token</small></h6>
                 <input type="hidden" name="token" value="${header.timetaken}">
               </async-fragment>
             </form>

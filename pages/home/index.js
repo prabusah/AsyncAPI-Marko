@@ -1,7 +1,3 @@
-/*
-NOTE: !!!!!!
-Get your api key from https://data.api.gov and replace string <REPLACE YOUR API KEY> with your api key
-*/
 
 var template = require('marko').load(require.resolve('./template.marko'));
 var https = require('https');
@@ -14,15 +10,11 @@ module.exports = function(req, res) {
     var jsLocation = req.query.jsLocation || 'middle';
     var reorder = renderMode === 'progressive-out-of-order';
     var stateName = req.query.state;
-    //console.log(stateName+"****");
-    if(stateName === undefined) stateName = "Assam";
-
-    var auth = 'Basic '+ new Buffer("<<CUSUMERKEY>>:<<CONSUMERSECRET>>").toString('base64'); //Replace your key and secret
-    var myJSONObject = {grant_type:'client_credential'};
+    var auth = 'Basic '+ new Buffer("YOUR ConsumerKey:YOUR ConsumerSecret").toString('base64'); //Replace your key and secret
     var post_data = querystring.stringify({
       'grant_type' : 'client_credentials'
     });
-    var tok = {
+    var tokenAPI = {
         host : 'apphonics.tcs.com', 
         path : '/token',
         port : 443,
@@ -36,7 +28,7 @@ module.exports = function(req, res) {
     var viewModel = {
         headerDataProvider: function(args, callback) {
             var token = '';
-            reqGet = https.request(tok, function(res) {
+            reqGet = https.request(tokenAPI, function(res) {
                 var body = '';
                 res.on('data', function(d) {
                     body += d;
@@ -49,7 +41,7 @@ module.exports = function(req, res) {
                             callback(null, {
                                 timetaken : token
                             });
-                        }, 500);
+                        }, 0);
                     }
                 });
             });

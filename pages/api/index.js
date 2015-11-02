@@ -14,28 +14,33 @@ module.exports = function(req, res) {
     var reorder = renderMode === 'progressive-out-of-order';
     var stateName = escape(req.body.state);
     var token = req.body.token;
-    console.log(token+"****");
-    if(stateName === undefined) stateName = "Assam";
+    var auth = 'Bearer '+token;
 
     var apiOne = {
-        host : 'data.gov.in', 
+        host : 'apphonics.tcs.com', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=5d76aa1c-fd1d-41f1-bc34-25aa6d356402&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[stateu_t_]='+stateName,
-        method : 'GET'
+        path : '/public/open-government-data/v1.0/?resource_id=5d76aa1c-fd1d-41f1-bc34-25aa6d356402&api-key=<REPLACE YOUR API KEY>&filters[stateu_t_]='+stateName,
+        method : 'GET',
+        headers : {'Authorization': auth},
+        rejectUnauthorized: false
     };
 
     var apiTwo = {
-        host : 'data.gov.in', 
+        host : 'apphonics.tcs.com', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=3b66700e-3368-4a7f-975f-abfabe861501&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[stateu_t_]='+stateName, 
-        method : 'GET' 
+        path : '/public/open-government-data/v1.0/?resource_id=3b66700e-3368-4a7f-975f-abfabe861501&api-key=<REPLACE YOUR API KEY>&filters[stateu_t_]='+stateName, 
+        method : 'GET',
+        headers : {'Authorization': auth},
+        rejectUnauthorized: false
     };
 
     var apiThree = {
-        host : 'data.gov.in', 
+        host : 'apphonics.tcs.com', 
         port : 443,
-        path : '/api/datastore/resource.json?resource_id=7390abfc-3b3f-4a07-a17d-3cfe2ffa9300&api-key=c99fadfeaf9613702cad21c4cb8b5907&filters[statesuts]='+stateName, 
-        method : 'GET' 
+        path : '/public/open-government-data/v1.0/?resource_id=7390abfc-3b3f-4a07-a17d-3cfe2ffa9300&api-key=<REPLACE YOUR API KEY>&filters[statesuts]='+stateName, 
+        method : 'GET',
+        headers : {'Authorization': auth},
+        rejectUnauthorized: false
     };
 
     var viewModel = {
@@ -47,9 +52,8 @@ module.exports = function(req, res) {
                     body += d;
                 });
                 res.on('end', function() {
-                    var end = (new Date() - start) + 1000; //1s delayed manually - see index.js
+                    var end = (new Date() - start) + 1000; //1s delayed manually
                     var par = JSON.parse(body);
-                    console.info("Execution time: %dms", end);
                     //process.stdout.write(parsed.help);
                     
                     if(par.success === true){
@@ -68,7 +72,7 @@ module.exports = function(req, res) {
             });
             reqGet.end();
             reqGet.on('error', function(e) {
-                //console.error(e);
+                console.error(e);
             });      
         },
         navDataProvider: function(args, callback) {
@@ -97,7 +101,7 @@ module.exports = function(req, res) {
             });
             reqGet.end();
             reqGet.on('error', function(e) {
-                //console.error(e);
+                console.error(e);
             });
         },
         mainDataProvider: function(args, callback) {
@@ -124,7 +128,7 @@ module.exports = function(req, res) {
             });
             reqGet.end();
             reqGet.on('error', function(e) {
-                //console.error(e);
+                console.error(e);
             });
         },
         footerDataProvider: function(args, callback) {
