@@ -52,7 +52,7 @@ module.exports = function(req, res) {
                     body += d;
                 });
                 res.on('end', function() {
-                    var end = (new Date() - start) + 1000; //1s delayed manually
+                    var end = (new Date() - start);
                     var par = JSON.parse(body);
                     //process.stdout.write(parsed.help);
                     
@@ -66,7 +66,7 @@ module.exports = function(req, res) {
                                 contractMale : par.records[0].paracontract_teachers___male,
                                 contractFemale : par.records[0].paracontract_teachers___female
                             });
-                        }, 1000);
+                        }, 0);
                     }
                 });
             });
